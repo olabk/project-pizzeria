@@ -52,7 +52,7 @@
     menuProduct: Handlebars.compile(document.querySelector(select.templateOf.menuProduct).innerHTML),
   };
 
-  class Product{
+  class Product {
     constructor(id, data){
       const thisProduct = this;
       
@@ -84,6 +84,7 @@
       thisProduct.formInputs = thisProduct.form.querySelectorAll(select.all.formInputs);
       thisProduct.cartButton = thisProduct.element.querySelector(select.menuProduct.cartButton);
       thisProduct.priceElem = thisProduct.element.querySelector(select.menuProduct.priceElem);
+      thisProduct.imageWrapper = thisProduct.element.querySelector(select.menuProduct.imageWrapper);
     }
 
     initAccordion(){
@@ -129,9 +130,8 @@
       console.log('initOrderForm');
 
     }
-  
-  
-    processOrder(){
+    
+    processOrder() {
       const thisProduct = this;
       // covert form to object structure e.g. { sauce: ['tomato'], toppings: ['olives', 'redPeppers']}
       const formData = utils.serializeFormToObject(thisProduct.form);
@@ -152,6 +152,7 @@
           const formCategory = formData[paramId]; // ['tomato']
           const isOptionSelected = formCategory && (formCategory.indexOf(optionId) > -1);
 
+          // price calculation
           if(option.default){
             if (!isOptionSelected){
               price -= option.price;
@@ -161,15 +162,27 @@
               price += option.price;
             }
           }
+
+          // applicating images
+          const imageClass = paramId + '-' + optionId;
+          const imageSelector = '.' + imageClass;
+          const optionImage = thisProduct.imageWrapper.querySelector(imageSelector);
+
+          if (optionImage) {
+            const classes = optionImage.classList;
+            if (isOptionSelected) {
+              classes.add('active');
+            } else {
+              classes.remove('active');
+            }
+          }
         }
       }
 
       // update calculated price in the HTML
       thisProduct.priceElem.innerHTML = price;
-    } 
-  }
-
-    
+    }
+  } 
 
   const app = {
     initMenu: function(){
