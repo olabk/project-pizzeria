@@ -1,0 +1,8 @@
+{
+    "files.exclude": {
+        "__MACOSX": true,
+        ".vscode": true,
+        "dist": true,
+        "node_modules": true
+    }
+}
