@@ -42,9 +42,9 @@
 
   const settings = {
     amountWidget: {
-      defaultValue: 1,
-      defaultMin: 1,
-      defaultMax: 9,
+      defaultValue: 0,
+      defaultMin: 0,
+      defaultMax: 10,
     }
   };
 
@@ -195,9 +195,7 @@
     constructor(element){
       const thisWidget = this;
       thisWidget.getElements(element);
-
-      thisWidget.setValue(thisWidget.input.value);
-
+      thisWidget.setValue(settings.amountWidget.defaultValue);
       thisWidget.initActions();
 
       console.log('AmountWidget:', thisWidget);
