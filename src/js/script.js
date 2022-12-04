@@ -214,7 +214,9 @@
     setValue(value){
       const thisWidget = this;
       const newValue = parseInt(value);
-      if (thisWidget.value !== newValue && !isNaN(newValue)) {
+      const minMax = settings.amountWidget;
+
+      if (thisWidget.value !== newValue && !isNaN(newValue) && newValue >= minMax.defaultMin && newValue <= minMax.defaultMax) {
         thisWidget.value = newValue;
       }
       
