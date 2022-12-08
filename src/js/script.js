@@ -222,7 +222,7 @@
     }
     addToCart(){
       const thisProduct = this;
-      app.cart.add(thisProduct.prepareCartProduct);
+      app.cart.add(thisProduct.prepareCartProduct());
     }
     prepareCartProduct(){
       const thisProduct = this;
@@ -235,7 +235,7 @@
         price: thisProduct.priceSingle * thisProduct.amountWidget.value,
         params:{}
       };
-      return; 
+      return productSummary; 
     }
     prepareCartProductParams(){
       const thisProduct = this;
@@ -258,6 +258,7 @@
     
           if(optionSelected) {
             // option is selected!
+            params[paramId].options.push(optionSelected);
           }
         }
       }
