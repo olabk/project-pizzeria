@@ -227,13 +227,22 @@
     prepareCartProduct(){
       const thisProduct = this;
 
+      //const productParameters = [];
+
+      // //for (const iterator of p) {
+      // //productParameters.push({
+      //   //label: 'param',
+      //   //options: ['option1', 'option2']
+      // //});
+      // //}
+
       const productSummary = {
         id: thisProduct.id,
         name: thisProduct.data.name,
         amount: thisProduct.amountWidget.value,
         priceSingle: thisProduct.priceSingle,
         price: thisProduct.priceSingle * thisProduct.amountWidget.value,
-        params:{}
+        params: thisProduct.prepareCartProductParams()
       };
       return productSummary; 
     }
@@ -250,7 +259,7 @@
         
         params[paramId] = {
           label: param.label,
-          options: {}
+          options: []
         };
         for(let optionId in param.options) {
           const option = param.options[optionId];
@@ -258,7 +267,7 @@
     
           if(optionSelected) {
             // option is selected!
-            params[paramId].options.push(optionSelected);
+            params[paramId].options.push(option.label);
           }
         }
       }
@@ -329,6 +338,7 @@
       thisCart.dom = {};
       thisCart.dom.wrapper = element;
       thisCart.dom.toggleTrigger = element.querySelector(select.cart.toggleTrigger);
+      thisCart.dom.productList =  element.querySelector(select.cart.productList);
     }
 
     initActions(){
@@ -342,10 +352,13 @@
     }
 
     add(menuProduct){
-      // const thisCart = this;
+      const thisCart = this;
+    
+      const generatedHTML = templates.cartProduct(menuProduct);
+      const generatedDOM = utils.createDOMFromHTML(generatedHTML);
+      thisCart.dom.productList.appendChild(generatedDOM);
 
-
-      console.log('adding product', menuProduct);
+      console.log('adding product', menuProduct); 
     }
   }
 
