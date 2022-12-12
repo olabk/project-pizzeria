@@ -227,15 +227,6 @@
     prepareCartProduct(){
       const thisProduct = this;
 
-      //const productParameters = [];
-
-      // //for (const iterator of p) {
-      // //productParameters.push({
-      //   //label: 'param',
-      //   //options: ['option1', 'option2']
-      // //});
-      // //}
-
       const productSummary = {
         id: thisProduct.id,
         name: thisProduct.data.name,
